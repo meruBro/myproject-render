@@ -141,6 +141,19 @@ def student_update(request, student_id):
         'score_rows': score_rows,
     })
 
+def student_delete(request, student_id):
+    students = sidebar_students()
+    student = get_object_or_404(Student, id=student_id)
+
+    if request.method == 'POST':
+        student.delete()  # Score는 FK(CASCADE)라 함께 삭제됨
+        return redirect('student_app:student_list')
+
+    return render(request, 'student_app/student_confirm_delete.html', {
+        'students': students,
+        'student': student,
+    })
+
 def subject_list(request):
     students = sidebar_students()
     subjects = Subject.objects.all().order_by('name')
@@ -177,5 +190,23 @@ def subject_delete(request, subject_id):
 
     return render(request, 'student_app/subject_confirm_delete.html', {
         'students': students,
+        'subject': subject,
+    })
+
+def subject_update(request, subject_id):
+    students = sidebar_students()
+    subject = get_object_or_404(Subject, id=subject_id)
+
+    if request.method == 'POST':
+        form = SubjectForm(request.POST, instance=subject)
+        if form.is_valid():
+            form.save()
+            return redirect('student_app:subject_detail', subject_id=subject.id)
+    else:
+        form = SubjectForm(instance=subject)
+
+    return render(request, 'student_app/subject_form.html', {
+        'students': students,
+        'form': form,
         'subject': subject,
     })

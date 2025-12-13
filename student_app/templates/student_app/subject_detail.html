@@ -20,5 +20,7 @@
 
   <div>
     <a href="{% url 'student_app:subject_list' %}">← 수강과목관리로</a>
+    <span style="margin:0 8px;">|</span>
+    <a href="{% url 'student_app:subject_update' subject.id %}">수정</a>
   </div>
 {% endblock %}

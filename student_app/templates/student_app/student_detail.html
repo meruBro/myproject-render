@@ -22,6 +22,12 @@
       </td>
     </tr>
   </table>
+  <div style="margin-top:10px;">
+    <a href="{% url 'student_app:student_update' student.id %}">학생정보 수정</a>
+    <span style="margin:0 8px;">|</span>
+    <a href="{% url 'student_app:student_delete' student.id %}">학생 삭제</a>
+  </div>
+
 
   {% if show_scores %}
     <!-- 요구사항: 성적 정보가 나오는 화면에서 성적 수정 가능 -->

@@ -1,0 +1,29 @@
+{% extends 'student_app/layout.html' %}
+
+{% block content %}
+  <h2 style="margin-top:0;">과목 수정</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <table class="info-table">
+      <tr>
+        <th>과목명</th>
+        <th>담당 교수</th>
+        <th>교재명</th>
+        <th>수업 시간</th>
+      </tr>
+      <tr>
+        <td>{{ form.name }}</td>
+        <td>{{ form.professor }}</td>
+        <td>{{ form.textbook }}</td>
+        <td>{{ form.class_time }}</td>
+      </tr>
+    </table>
+
+    <div style="margin-top:12px;">
+      <button type="submit">저장</button>
+      <a href="{% url 'student_app:subject_detail' subject.id %}" style="margin-left:10px;">취소</a>
+    </div>
+  </form>
+{% endblock %}

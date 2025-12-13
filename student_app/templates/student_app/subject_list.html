@@ -21,6 +21,7 @@
         <div class="subject-name">• {{ subj.name }}</div>
         <div class="subject-actions">
           <a href="{% url 'student_app:subject_detail' subj.id %}">view.</a>
+          <a href="{% url 'student_app:subject_update' subj.id %}">Edit</a>
           <a href="{% url 'student_app:subject_delete' subj.id %}">Delete</a>
         </div>
       </div>
