@@ -1,0 +1,31 @@
+{% extends 'student_app/layout.html' %}
+
+{% block content %}
+  <div class="subject-bar">
+    <form method="post" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      {% csrf_token %}
+
+      <!-- 과목명 + 상세정보 3개까지 모두 입력 -->
+      {{ form.name }}
+      {{ form.professor }}
+      {{ form.textbook }}
+      {{ form.class_time }}
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <div class="subject-list">
+    {% for subj in subjects %}
+      <div class="subject-row">
+        <div class="subject-name">• {{ subj.name }}</div>
+        <div class="subject-actions">
+          <a href="{% url 'student_app:subject_detail' subj.id %}">view.</a>
+          <a href="{% url 'student_app:subject_delete' subj.id %}">Delete</a>
+        </div>
+      </div>
+    {% empty %}
+      <div>등록된 과목이 없습니다.</div>
+    {% endfor %}
+  </div>
+{% endblock %}

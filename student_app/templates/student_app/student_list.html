@@ -1,0 +1,12 @@
+{% extends 'student_app/layout.html' %}
+{% load static %}
+
+{% block content %}
+  <div style="display:flex; align-items:center; justify-content:center; height:100%;">
+    <div style="text-align:center;">
+      <img src="{% static 'student_app/images/logo.png' %}" alt="인하대학교 로고"
+           style="width:320px; max-width:70%; height:auto; display:block; margin:0 auto 24px auto;">
+      <div style="font-size:28px; font-weight:700;">성적관리 프로그램</div>
+    </div>
+  </div>
+{% endblock %}

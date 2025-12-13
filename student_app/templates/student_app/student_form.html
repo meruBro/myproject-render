@@ -1,0 +1,44 @@
+{% extends 'student_app/layout.html' %}
+
+{% block content %}
+  <h2 style="margin-top:0;">학생정보관리</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <table class="info-table">
+      <tr>
+        <th>학번</th><th>이름</th><th>학과</th><th>성별</th>
+      </tr>
+      <tr>
+        <td>{{ form.student_no }}</td>
+        <td>{{ form.name }}</td>
+        <td>{{ form.department }}</td>
+        <td>{{ form.gender }}</td>
+      </tr>
+    </table>
+
+    <h3 style="margin:12px 0 8px;">과목별 성적 입력</h3>
+
+    <table class="score-table">
+      <tr><th>과목</th><th>성적</th></tr>
+      {% for row in score_rows %}
+        <tr>
+          <td>{{ row.subject.name }}</td>
+          <td>
+            <input type="number"
+                   name="score_{{ row.subject.id }}"
+                   min="0" max="100"
+                   value="{{ row.value }}">
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="2">등록된 과목이 없습니다.</td></tr>
+      {% endfor %}
+    </table>
+
+    <div style="margin-top:12px;">
+      <button type="submit">저장</button>
+    </div>
+  </form>
+{% endblock %}

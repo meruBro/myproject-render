@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 성적관리 시스템</title>
+</head>
+<body>
+    <header>
+        <h1>학생 성적관리 시스템</h1>
+        <nav>
+            <a href="{% url 'student_app:student_list' %}">메인(학생목록)</a> |
+            <a href="{% url 'student_app:subject_list' %}">수강과목 관리</a> |
+            <a href="{% url 'student_app:student_create' %}">학생 추가</a>
+        </nav>
+        <hr>
+    </header>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

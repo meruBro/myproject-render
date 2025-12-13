@@ -1,0 +1,66 @@
+{% extends 'student_app/layout.html' %}
+
+{% block content %}
+
+  <!-- 학생 기본정보 -->
+  <table class="info-table">
+    <tr>
+      <th>학번</th>
+      <th>이름</th>
+      <th>학과</th>
+      <th>성별</th>
+      <th>성적</th>
+    </tr>
+    <tr>
+      <td>{{ student.student_no }}</td>
+      <td>{{ student.name }}</td>
+      <td>{{ student.department }}</td>
+      <td>{{ student.gender }}</td>
+      <td>
+        <!-- 요구사항: 학생 정보에서 '선택' 클릭하면 성적 정보 표시 -->
+        <a href="?show=1">선택</a>
+      </td>
+    </tr>
+  </table>
+
+  {% if show_scores %}
+    <!-- 요구사항: 성적 정보가 나오는 화면에서 성적 수정 가능 -->
+    <form method="post">
+      {% csrf_token %}
+
+      <table class="score-table">
+        <tr>
+          <th>과목</th>
+          <th>성적(수정)</th>
+          <th>과목평균</th>
+          <th>학점</th>
+        </tr>
+
+        {% for row in rows %}
+          <tr>
+            <td>{{ row.subject.name }}</td>
+            <td>
+              <input type="number"
+                     name="score_{{ row.subject.id }}"
+                     min="0" max="100"
+                     value="{% if row.student_score != None %}{{ row.student_score }}{% endif %}">
+            </td>
+            <td>
+              {% if row.avg_score != None %}
+                {{ row.avg_score|floatformat:0 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+            <td>{{ row.grade }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+
+      <div style="margin-top:10px;">
+        <button type="submit">저장</button>
+      </div>
+    </form>
+  {% endif %}
+
+{% endblock %}

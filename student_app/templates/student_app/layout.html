@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}성적관리 프로그램{% endblock %}</title>
+
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; }
+    .wrap { display:flex; height:100vh; }
+
+    /* 좌측 패널(스크린샷 스타일) */
+    .left {
+      width: 260px;
+      border: 3px solid #3a3aff;
+      box-sizing: border-box;
+      display:flex;
+      flex-direction: column;
+      padding: 8px;
+      gap: 10px;
+      background:#fff;
+    }
+    .left .block-title {
+      background:#3a3aff;
+      color:#fff;
+      font-weight:700;
+      padding: 8px 10px;
+      font-size:20px;
+    }
+    .left .list {
+      border:1px solid #999;
+      flex:1;
+      padding:10px;
+      overflow-y:auto;
+    }
+    .left .list a {
+      text-decoration:none;
+      color:#000;
+      display:block;
+      padding:3px 0;
+      font-size:18px;
+      line-height:1.2;
+    }
+    .left .bottom-title {
+      background:#3a3aff;
+      color:#fff;
+      font-weight:700;
+      padding: 8px 10px;
+      font-size:20px;
+      margin-top:auto;
+    }
+
+    /* 우측 패널(스크린샷 스타일) */
+    .right {
+      flex:1;
+      border:3px solid #33aa33;
+      box-sizing:border-box;
+      padding: 18px;
+      overflow:auto;
+      background:#fff;
+    }
+
+    /* UI-2 표 스타일(스크린샷 느낌) */
+    .info-table, .score-table {
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      width: 520px;
+    }
+    .info-table th, .info-table td,
+    .score-table th, .score-table td {
+      border: 1px solid #c7c7c7;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    .info-table th, .score-table th {
+      background: #5579c6;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+    }
+    .score-table td { background:#e9eefb; }
+    .info-table td { background:#e9eefb; }
+
+    /* UI-3 리스트 스타일 */
+    .subject-bar { margin-bottom: 14px; }
+    .subject-bar input { height: 22px; }
+    .subject-bar button { height: 26px; }
+    .subject-list { width: 520px; }
+    .subject-row { display:flex; align-items:center; gap: 10px; margin: 6px 0; }
+    .subject-name { width: 220px; }
+    .subject-actions a { margin-right: 10px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <!-- 좌측 공통 영역 -->
+    <aside class="left">
+      <div class="block-title">
+        <a href="{% url 'student_app:subject_list' %}" style="color:#fff; text-decoration:none;">수강과목관리</a>
+      </div>
+
+      <div class="list">
+        {% block sidebar_list %}
+          {% for s in students %}
+            <a href="{% url 'student_app:student_detail' s.id %}">{{ s.name }}</a>
+          {% empty %}
+            <div>등록된 학생이 없습니다.</div>
+          {% endfor %}
+        {% endblock %}
+      </div>
+
+      <div class="bottom-title">
+        <a href="{% url 'student_app:student_create' %}" style="color:#fff; text-decoration:none;">
+          학생정보관리
+        </a>
+      </div>
+    </aside>
+
+    <!-- 우측 컨텐츠(화면별로 바뀜) -->
+    <main class="right">
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+</body>
+</html>

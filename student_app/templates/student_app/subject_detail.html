@@ -1,0 +1,24 @@
+{% extends 'student_app/layout.html' %}
+
+{% block content %}
+  <h2 style="margin-top:0;">과목 상세 정보</h2>
+
+  <table class="info-table">
+    <tr>
+      <th>과목명</th>
+      <th>담당 교수</th>
+      <th>교재명</th>
+      <th>수업 시간</th>
+    </tr>
+    <tr>
+      <td>{{ subject.name }}</td>
+      <td>{{ subject.professor|default:"-" }}</td>
+      <td>{{ subject.textbook|default:"-" }}</td>
+      <td>{{ subject.class_time|default:"-" }}</td>
+    </tr>
+  </table>
+
+  <div>
+    <a href="{% url 'student_app:subject_list' %}">← 수강과목관리로</a>
+  </div>
+{% endblock %}
